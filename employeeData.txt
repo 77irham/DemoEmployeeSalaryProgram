@@ -1,0 +1,19 @@
+-------------------------- List of working employees --------------------------
+Muhammad Irham bin Firdaus			 RM 36750.0			 (2 years)
+Siti Bainun binti Raja			 RM 28350.0			 (3 years)
+Naim bin Faiziz			 RM 68250.0			 (5 years)
+Rahimah binti Abdullah			 RM 32550.0			 (4 years)
+Lee Chong Wei			 RM 10500.0			 (1 years)
+Lim Mei Loh			 RM 38850.0			 (3 years)
+Kwang Soo			 RM 47250.0			 (6 years)
+Mazizi bin Mazlan			 RM 65100.0			 (4 years)
+Tengku Baharuddin bin Tengku Syah			 RM 51450.0			 (5 years)
+Nabil Azamuddin bin Hanif			 RM 12600.0			 (1 years)
+
+
+ -------------------------- Top Performing Employee Details --------------------------
+Naim bin Faiziz			 RM 68250.00		 (5 years)
+
+
+ -------------------------- Details of Employee with the least years of service --------------------------
+Lee Chong Wei			 RM 10500.00		 (1 years)
