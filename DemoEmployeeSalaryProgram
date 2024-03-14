@@ -1,0 +1,102 @@
+import java.io.*; //import all files
+import java.util.StringTokenizer; //import StringTokenizer to use tokenizer and separate data
+import java.text.DecimalFormat; //import DecimalFormat to use decimal format
+import javax.swing.JOptionPane; //import JOptionPane to display answer in dialog box 
+
+public class DemoEmployeeSalaryProgram
+{
+    public static void main(String[]args) throws IOException
+    {
+        DecimalFormat dF = new DecimalFormat("0.00"); //2 decimal format
+        try
+        {
+            //read data from the input file
+            BufferedReader fileInput = new BufferedReader(new FileReader("employeeSalaries.txt"));
+            PrintWriter fileOutput = new PrintWriter(new FileWriter("employeeData.txt"));
+
+            //Declare the variables
+            String inputFileData = null;
+            String employeeName = "";
+            double employeeSalary = 0.00;
+            int employeeWorkingYears = 0;
+            double increment = 0.05;
+
+            //declare all variables for top performing employee
+            String topEmployeeName = "";
+            double topEmployeeAnnualSalary = 0.00;
+            int topEmployeeWorkingYear = 0;
+
+            //declare all variables for latest employee
+            String leastEmployeeName = "";
+            double leastEmployeeSalary = 0.00;
+            int leastEmployeeWorkingYears = 0;
+
+            //title header
+            fileOutput.println("-------------------------- List of working employees --------------------------");
+
+            while((inputFileData = fileInput.readLine()) != null) //looping if there are data exists
+            {
+                StringTokenizer tokenizer = new StringTokenizer(inputFileData,"|"); //separate data from notepad
+
+                employeeName = tokenizer.nextToken();
+                employeeSalary = Double.parseDouble(tokenizer.nextToken());
+                employeeWorkingYears = Integer.parseInt(tokenizer.nextToken());               
+
+                double annualSalary = employeeSalary + (employeeSalary * increment); //annual salary formula
+
+                //test for the negative number
+                if(employeeSalary < 0 || employeeWorkingYears < 0) //error handling
+                    throw new IllegalArgumentException();
+
+                //find the top performing employee
+                if(annualSalary > topEmployeeAnnualSalary){
+                    topEmployeeName = employeeName;
+                    topEmployeeAnnualSalary = annualSalary;
+                    topEmployeeWorkingYear = employeeWorkingYears;
+                }//end of if
+
+                //find the employee with the least years of service
+                if(leastEmployeeWorkingYears == 0 || employeeWorkingYears < leastEmployeeWorkingYears){
+                    leastEmployeeName = employeeName;
+                    leastEmployeeSalary = annualSalary;
+                    leastEmployeeWorkingYears = employeeWorkingYears;
+                }//end of if
+
+                //store list of employees
+                String employeeData = employeeName + "\t\t\t RM " + annualSalary + "\t\t\t ("+ employeeWorkingYears +" years)";
+                fileOutput.println(employeeData);
+
+            }//end of while
+
+            //top performing employee
+            fileOutput.println("\n\n -------------------------- Top Performing Employee Details --------------------------");
+            String topEmployeeData = topEmployeeName + "\t\t\t RM " + dF.format(topEmployeeAnnualSalary) + "\t\t ("+ topEmployeeWorkingYear + " years)";
+            fileOutput.println(topEmployeeData);
+            
+            //display top performing employee
+            JOptionPane.showMessageDialog(null, "-------- Top Performing Employee Details -------\n\t" + topEmployeeData);
+            
+            //least year of service employee
+            fileOutput.println("\n\n -------------------------- Details of Employee with the least years of service --------------------------");
+            String leastEmployeeData = leastEmployeeName + "\t\t\t RM "+ dF.format(leastEmployeeSalary) + "\t\t (" + leastEmployeeWorkingYears + " years)";
+            fileOutput.println(leastEmployeeData);
+            
+            //display least year of service employee details
+            JOptionPane.showMessageDialog(null, "-------- Employee with the least years of service Details -------\n\t" + leastEmployeeData);
+
+            //close all input and output files
+            fileInput.close();
+            fileOutput.close();
+        }
+        catch(FileNotFoundException ex)
+        {
+            String output="File not found";
+            JOptionPane.showMessageDialog(null, output);
+        }
+        catch(IllegalArgumentException iae)
+        {
+            String output="Invalid input!";
+            JOptionPane.showMessageDialog(null, output);
+        }
+    }
+}//end of program
